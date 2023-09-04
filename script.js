@@ -383,6 +383,7 @@ console.log((2.736).toFixed(2));
 console.log(+(2.736).toFixed(2));
 */
 
+/*
 // THE REMAINDER OPERATOR
 
 // simples return the remainder of the division
@@ -409,3 +410,27 @@ labelBalance.addEventListener('click', function () {
     if (i % 3 === 0) row.style.backgroundColor = 'blue';
   });
 });
+*/
+
+// NUMERIC SEPARATORS
+
+// Starting from ES2021 we can use Numeric Separators
+
+//287,460,000,000
+//const solarDiameter = 287460000000;
+const solarDiameter = 287_460_000_000;
+
+console.log(solarDiameter);
+
+const price = 345_99;
+console.log(price);
+
+const transferFee1 = 15_00;
+const transferFee2 = 1_500;
+
+const PI = 3.1415;
+console.log(PI);
+
+//has problems when try use numeric separators inside strings and try convert this values
+console.log(Number('230_000'));
+console.log(parseInt('230_000'));
