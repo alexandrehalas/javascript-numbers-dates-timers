@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out.toFixed(2))}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -252,6 +252,9 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 // LECTURES
 
+/*
+// CONVERTING AND CHECKING NUMBERS
+
 // All numbers in javascript internally are represented as floating points
 console.log(43 === 43.0);
 
@@ -291,3 +294,89 @@ console.log(Number.isInteger(58));
 console.log(Number.isInteger(58.0));
 console.log(Number.isInteger(58.9));
 console.log(Number.isInteger(76 / 0));
+*/
+
+// MATH AND ROUNDING
+
+console.log('square root');
+console.log(Math.sqrt(25));
+console.log(25 ** (1 / 2));
+console.log(8 ** (1 / 3));
+
+console.log('max');
+console.log(Math.max(1, 5, 10, 7, 8, 12, 3));
+console.log(Math.max(1, 5, 10, 7, '8', 12, 3));
+console.log(Math.max(1, 5, 10, 7, '8px', 12, 3));
+
+console.log('min');
+console.log(Math.min(1, 5, 10, 7, 8, 12, 3));
+
+console.log('pi');
+console.log(Math.PI);
+//calc area
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+console.log('random a number between zero and 1');
+console.log(Math.random());
+console.log(Math.trunc(Math.random() * 6) + 1); // generate a number between 1 and 6
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min) + 1) + min;
+
+console.log(randomInt(1, 3));
+
+console.log('trunc integers');
+console.log(Math.trunc(21.1));
+console.log(Math.trunc(21.4));
+console.log(Math.trunc(21.5));
+console.log(Math.trunc(21.6));
+console.log(Math.trunc(21.9));
+
+console.log('rouding positive integers');
+console.log(Math.round(21.1));
+console.log(Math.round(21.4));
+console.log(Math.round(21.5));
+console.log(Math.round(21.6));
+console.log(Math.round(21.9));
+
+console.log('rouding negative integers');
+console.log(Math.round(-21.1));
+console.log(Math.round(-21.4));
+console.log(Math.round(-21.5));
+console.log(Math.round(-21.6));
+console.log(Math.round(-21.9));
+
+console.log('ceil integers');
+console.log(Math.ceil(21.1));
+console.log(Math.ceil(21.4));
+console.log(Math.ceil(21.5));
+console.log(Math.ceil(21.6));
+console.log(Math.ceil(21.9));
+
+console.log('ceil negative integers');
+console.log(Math.ceil(-21.1));
+console.log(Math.ceil(-21.4));
+console.log(Math.ceil(-21.5));
+console.log(Math.ceil(-21.6));
+console.log(Math.ceil(-21.9));
+
+console.log('floor integers');
+console.log(Math.floor(21.1));
+console.log(Math.floor(21.4));
+console.log(Math.floor(21.5));
+console.log(Math.floor(21.6));
+console.log(Math.floor(21.9));
+
+console.log('floor negative integers');
+console.log(Math.floor(-21.1));
+console.log(Math.floor(-21.4));
+console.log(Math.floor(-21.5));
+console.log(Math.floor(-21.6));
+console.log(Math.floor(-21.9));
+
+console.log('rouding decimals');
+console.log((2.7).toFixed(0));
+console.log((2.7).toFixed(3));
+console.log((2.734).toFixed(2));
+console.log((2.736).toFixed(2));
+console.log(+(2.736).toFixed(2));
