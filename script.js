@@ -184,9 +184,35 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogOutTimer = function () {
+  let time = 300;
+
+  const tick = function () {
+    const minute = String(Math.trunc(time / 60)).padStart(2, '0');
+    const second = String(time % 60).padStart(2, '0');
+
+    labelTimer.textContent = `${minute}:${second}`;
+
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = 0;
+    }
+
+    time--;
+  };
+
+  tick();
+
+  const timer = setInterval(tick, 1000);
+
+  return timer;
+};
+
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
+let timer;
 
 // // FAKED ALWAYS LOGGED IN
 // currentAccount = account1;
@@ -233,6 +259,11 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    if (timer) {
+      clearInterval(timer);
+    }
+    timer = startLogOutTimer();
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -262,6 +293,10 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    //Reset timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
 });
 
@@ -611,6 +646,7 @@ console.log(
 );
 */
 
+/*
 // TIMERS: SETTIMEOUT AND SETINTERVAL
 
 // setTimeout
@@ -629,3 +665,4 @@ setInterval(function () {
   const now = new Date();
   console.log(now);
 }, 1000);
+*/
